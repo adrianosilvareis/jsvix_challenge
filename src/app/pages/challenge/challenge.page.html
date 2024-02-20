@@ -1,0 +1,22 @@
+<div class="flex flex-column">
+  <div class="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+    <h1>1º JSVix Challenger</h1>
+  </div>
+  <div class="flex align-items-center justify-content-center h-4rem bg-primary font-bold border-round m-2">
+    <h3>feat Solana</h3>
+  </div>
+</div>
+
+<p-divider></p-divider>
+
+<app-divider>
+  <div ngProjectAs="div-left">
+    <app-deposit />
+  </div>
+  <div ngProjectAs="div-right">
+    <app-card-purchase />
+  </div>
+</app-divider>
+
+<p-divider layout="horizontal" styleClass="hidden md:flex" />
+<app-statement />
