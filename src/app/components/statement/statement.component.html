@@ -1,6 +1,6 @@
 <h1>Bank Statement</h1>
 
-<p-table [value]="transactions">
+<p-table [value]="transactions" [loading]="(loading$ | async) ?? false">
   <ng-template pTemplate="header">
     <tr>
       <th>Date</th>
@@ -23,7 +23,7 @@
   <ng-template pTemplate="summary">
     <div class="flex align-items-center justify-content-center">
       <span class="flex-1">Total</span>
-      <span class="flex-1">{{total | currency }}</span>
+      <span class="flex-1">{{ balance$ | async | currency }}</span>
     </div>
   </ng-template>
 </p-table>

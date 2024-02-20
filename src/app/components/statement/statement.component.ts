@@ -1,44 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as fromTransaction from '../../store/transaction.selectors';
+import { Transaction } from '../../interfaces/transaction.interface';
 
 @Component({
   selector: 'app-statement',
   templateUrl: './statement.component.html'
 })
-export class StatementComponent {
-  transactions = [
-    {
-      date: new Date(),
-      description: 'Supermercado',
-      type: 'credit',
-      amount: 35.5
-    },
-    {
-      date: new Date(),
-      description: 'Salario',
-      type: 'deposit',
-      amount: 2000
-    },
-    {
-      date: new Date(),
-      description: 'Escola',
-      type: 'credit',
-      amount: 15.5
-    },
-    {
-      date: new Date(),
-      description: 'Roupas',
-      type: 'credit',
-      amount: 7.5
-    },
-    {
-      date: new Date(),
-      description: 'restaurante',
-      type: 'credit',
-      amount: 80.5
-    },
-  ]
+export class StatementComponent implements OnInit {
+  transactions: Transaction[] = [];
 
-  total = this.transactions.reduce((prev, { type, amount }) => {
-    return type === 'credit' ? prev -= amount : prev += amount;
-  }, 0);
+  transaction$ = this.store.select(fromTransaction.selectTransactions);
+  balance$ = this.store.select(fromTransaction.selectBalance);
+  loading$ = this.store.select(fromTransaction.selectLoading);
+
+  constructor(private readonly store: Store<fromTransaction.AppState>) {}
+
+  ngOnInit(): void {
+    this.transaction$.subscribe((t) => this.transactions = t);
+  }
 }
