@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ComponentsModule } from '../../components/components.module';
+import { loadTransactions } from '../../store/transaction.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   standalone: true,
@@ -9,6 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
   templateUrl: './challenge.page.html',
   styleUrl: './challenge.page.scss'
 })
-export class ChallengePage {
+export class ChallengePage implements OnInit{
 
+  ngOnInit(): void {
+    this.store.dispatch(loadTransactions());
+  }
+
+  constructor(private readonly store: Store) {}
 }

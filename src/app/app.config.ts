@@ -6,6 +6,8 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideState, provideStore } from '@ngrx/store';
 import { transactionsReducer } from './store/transaction.reduce';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
+import { TransactionEffects } from './store/transaction.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideStore(),
     provideState({ name: 'transaction', reducer: transactionsReducer }),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-  ]
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideEffects(TransactionEffects),
+]
 };

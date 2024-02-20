@@ -35,6 +35,9 @@ dependencies:
   '@angular/ssr':
     specifier: ^17.1.2
     version: 17.1.3(@angular/common@17.1.3)(@angular/core@17.1.3)
+  '@ngrx/effects':
+    specifier: ^17.1.0
+    version: 17.1.0(@angular/core@17.1.3)(@ngrx/store@17.1.0)(rxjs@7.8.1)
   '@ngrx/store':
     specifier: ^17.1.0
     version: 17.1.0(@angular/core@17.1.3)(rxjs@7.8.1)
@@ -2060,6 +2063,29 @@ packages:
     dependencies:
       call-bind: 1.0.7
     dev: true
+
+  /@ngrx/effects@17.1.0(@angular/core@17.1.3)(@ngrx/store@17.1.0)(rxjs@7.8.1):
+    resolution: {integrity: sha512-aU/4KUCHdr5Vk/fOwtEnJ/AHhI6ZLHRTKxdkRw89qAtaJJiK0JAiuGIDlOvnP7alPi6SvIpMohD+Bz7M/jUAKQ==}
+    peerDependencies:
+      '@angular/core': ^17.0.0
+      '@ngrx/store': 17.1.0
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
+      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
+      '@ngrx/operators': 17.0.0-beta.0(rxjs@7.8.1)
+      '@ngrx/store': 17.1.0(@angular/core@17.1.3)(rxjs@7.8.1)
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
+
+  /@ngrx/operators@17.0.0-beta.0(rxjs@7.8.1):
+    resolution: {integrity: sha512-EbO8AONuQ6zo2v/mPyBOi4y0CTAp1x4Z+bx7ZF+Pd8BL5ma53BTCL1TmzaeK5zPUe0yApudLk9/ZbHXPnVox5A==}
+    peerDependencies:
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
 
   /@ngrx/store-devtools@17.1.0(@ngrx/store@17.1.0)(rxjs@7.8.1):
     resolution: {integrity: sha512-sJxyyrMul6lh555PHjbCwk3uaw7bVOX1RNw7rPDpZSiD+CQwvtnD3xZxzx2Q21v7OPMlqr/ncjzbht9lSiGDRw==}
