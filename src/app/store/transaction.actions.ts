@@ -1,9 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { Transaction } from '../interfaces/transaction.interface';
+import { TransactionProps } from '../interfaces/transaction-props.interface';
 
 export const performTransaction = createAction(
   '[Transaction] Perform Transaction',
-  props<{ transaction: Transaction }>()
+  props<{ transaction: TransactionProps }>()
 );
 
 export const performTransactionSuccess = createAction(

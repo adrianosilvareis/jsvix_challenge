@@ -1,18 +1,18 @@
-<div class="flex flex-column gap-2">
+<form [formGroup]="formGroup" class="flex flex-column gap-2">
   <div class="flex flex-wrap justify-content-center align-items-center gap-2">
     <p-inputGroup>
       <p-inputGroupAddon>
           <i class="pi pi-user"></i>
       </p-inputGroupAddon>
-      <input pInputText placeholder="Depositor" />
+      <input pInputText placeholder="Depositor" formControlName="depositorName"/>
     </p-inputGroup>
   </div>
 
   <div class="flex flex-wrap justify-content-center align-items-center gap-2">
     <p-inputGroup>
       <p-inputGroupAddon>$</p-inputGroupAddon>
-      <input type="text" pInputText placeholder="Price" />
+      <input type="number" pInputText placeholder="Price" formControlName="price"/>
     </p-inputGroup>
   </div>
-  <p-button label="Deposit" icon="pi pi-money-bill" styleClass="p-button-success w-10rem mx-auto"></p-button>
-</div>
+  <p-button label="Deposit" icon="pi pi-money-bill" styleClass="p-button-success w-10rem mx-auto" (onClick)="addDeposit()"></p-button>
+</form>

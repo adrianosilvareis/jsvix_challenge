@@ -4,7 +4,7 @@ import { PrimeModule } from './prime.module';
 import { StatementComponent } from './statement/statement.component';
 import { CardPurchaseComponent } from './card-purchase/card-purchase.component';
 import { DepositComponent } from './deposit/deposit.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DividerComponent } from './divider/divider.component';
 
 @NgModule({
@@ -18,6 +18,7 @@ import { DividerComponent } from './divider/divider.component';
     CommonModule,
     PrimeModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,

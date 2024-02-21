@@ -6,7 +6,11 @@ import { Transaction } from "../interfaces/transaction.interface";
   providedIn: 'root'
 })
 export class JSChallengerDB {
-  private transactions: Transaction[] = [
+  private transactions: Transaction[] = [];
+
+  /**
+   *
+   * [
     {
       id: 'any_id',
       date: new Date(),
@@ -43,12 +47,18 @@ export class JSChallengerDB {
       amount: 80.5
     },
   ];
+   */
 
   add (transaction: Transaction) {
-    this.transactions.push(transaction);
+    this.transactions = [...this.transactions, transaction];
+    return transaction;
   }
 
   list() {
     return this.transactions;
+  }
+
+  lastItem() {
+    return this.transactions.at(-1);
   }
 }
