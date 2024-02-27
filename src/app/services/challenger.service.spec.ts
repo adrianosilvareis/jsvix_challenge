@@ -1,6 +1,9 @@
+import { faker } from '@faker-js/faker';
 import { SHA256 } from 'crypto-js';
 import { JSChallengerDB } from '../db/jschallenger.db';
+import { TransactionProps } from '../interfaces/transaction-props.interface';
 import { TransactionType } from '../interfaces/transaction-type.enum';
+import { Transaction } from '../interfaces/transaction.interface';
 import { ChallengerService } from './challenger.service.ts';
 
 describe('ChallengerService', () => {
@@ -18,11 +21,7 @@ describe('ChallengerService', () => {
   });
 
   it('deve retornar uma instancia de Transaction ao chamar a função "createTransaction"', () => {
-    const transactionProps = {
-      type: TransactionType.credit,
-      amount: 100,
-      description: 'Supermercado'
-    };
+    const transactionProps = Builder.TransactionPropsBuild();
 
     const expected = Object.assign({}, transactionProps, {
       id: SHA256('JSVIX').toString(),
@@ -35,96 +34,52 @@ describe('ChallengerService', () => {
   });
 
   it('deve retornar um Id novo para cada transação usando o ultimo Id como chave', () => {
-    const transaçãoExistente = {
-      id: 'JSVIX',
-      amount: 100,
-      date: new Date(),
-      description: 'Compra',
-      type: TransactionType.credit,
-    }
+    const transaçãoExistente = Builder.TransactionBuild();
+    transaçãoExistente.id = 'JSVIX';
 
     service.database.transactions = [ transaçãoExistente ];
 
-    const novaTransação = service.createTransaction({
-      amount: 150,
-      description: 'Outra compra',
-      type: TransactionType.credit,
-    })
+    const novaTransação = service.createTransaction(Builder.TransactionPropsBuild());
     const SHA256_OF_JSVIX = '59f92eab109759c9db3d4f0b3c1dda6a39f499591b10d122c1f9f278fd50ca9e';
 
     expect(SHA256_OF_JSVIX).toBe(novaTransação.id);
   });
 
   it('deve retornar falso se a transação for a primeira cadastrada no banco de dados', () => {
-    const isDuplicated = service.checkDuplicate({
-      id: 'JSVIX',
-      amount: 100,
-      date: new Date(),
-      description: 'Compra',
-      type: TransactionType.credit,
-    })
-
+    const isDuplicated = service.checkDuplicate(Builder.TransactionBuild());
     expect(isDuplicated).toBeFalsy();
   });
 
   it('deve retornar falso se a nova transação for tiver descrição ou valor diferente da última registrada', () => {
-    const transaçãoExistente = {
-      id: 'JSVIX',
-      amount: 100,
-      date: new Date(),
-      description: 'Compra',
-      type: TransactionType.credit,
-    }
+    const transaçãoExistente = Builder.TransactionBuild();
+    const novaTransação = Builder.TransactionBuild();
 
     service.database.transactions = [ transaçãoExistente ];
 
-    const isDuplicated = service.checkDuplicate({
-      id: 'OUTRO_ID_QUALQUER',
-      amount: 100,
-      date: new Date(),
-      description: 'Outra descrição qualquer',
-      type: TransactionType.credit,
-    })
+    const isDuplicated = service.checkDuplicate(novaTransação);
 
     expect(isDuplicated).toBeFalsy();
   });
 
   it('deve retornar true se a nova transação for tiver descrição e valor igual ao último registro', () => {
-    const transaçãoExistente = {
-      id: 'JSVIX',
-      amount: 100,
-      date: new Date(),
-      description: 'Compra',
-      type: TransactionType.credit,
-    }
-
+    const transaçãoExistente = Builder.TransactionBuild();
     service.database.transactions = [ transaçãoExistente ];
 
-    const isDuplicated = service.checkDuplicate({
-      id: 'OUTRO_ID_QUALQUER',
-      amount: 100,
-      date: new Date(),
-      description: 'Compra',
-      type: TransactionType.credit,
-    })
+    const isDuplicated = service.checkDuplicate(Object.assign({}, transaçãoExistente, {
+      id: faker.string.uuid(),
+    }))
 
     expect(isDuplicated).toBeTruthy();
   });
 
   it('deve criar uma transação de mesmo valor, com tipo contrario e descrição com o seguinte prefixo - "Reverse Operation: " ao chamar a função "createReverseOperation"', () => {
-    const transactionProps = service.createReverseOperation({
-      id: 'ANY_ID',
-      date: new Date(),
-      type: TransactionType.credit,
-      amount: 100,
-      description: 'Transação duplicada'
-    })
+    const transaçãoExistente = Builder.TransactionBuild();
 
-    const expectedProps = {
-      type: TransactionType.deposit,
-      amount: 100,
-      description: 'Reverse Operation: Transação duplicada'
-    }
+    const transactionProps = service.createReverseOperation(transaçãoExistente)
+
+    const expectedProps = Object.assign({}, transactionProps, {
+      description: `Reverse Operation: ${transaçãoExistente.description}`
+    });
 
     expect(transactionProps).toEqual(expectedProps);
   });
@@ -135,16 +90,11 @@ describe('ChallengerService', () => {
   });
 
   it('deve retornar o id do ultimo registro, quando existir', () => {
-    service.database.transactions = [{
-      id: 'ULTIMO_ID',
-      date: new Date(),
-      amount: 100,
-      description: 'qualquer descrição',
-      type: TransactionType.deposit
-    }];
+    const transaçãoExistente = Builder.TransactionBuild();
+    service.database.transactions = [ transaçãoExistente ];
 
     const lastHash = service.lastHash();
-    expect(lastHash).toBe('ULTIMO_ID');
+    expect(lastHash).toBe(transaçãoExistente.id);
   });
 
   it('deve retornar um SHA256 usando o valor passado como chave', () => {
@@ -153,3 +103,23 @@ describe('ChallengerService', () => {
   });
 
 });
+
+class Builder {
+  static TransactionBuild(): Transaction {
+    return {
+      id: faker.string.uuid(),
+      date: new Date(),
+      amount: faker.number.int(),
+      description: faker.commerce.productName(),
+      type: faker.helpers.enumValue(TransactionType)
+    }
+  }
+
+  static TransactionPropsBuild(): TransactionProps {
+    return {
+      amount: faker.number.int(),
+      description: faker.commerce.productName(),
+      type: faker.helpers.enumValue(TransactionType)
+    }
+  }
+}
