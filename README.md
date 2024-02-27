@@ -1,6 +1,6 @@
 # DOJO JSVIX
 
-Todo codigo deve ser implementado no arquivo `./app/services/challenger.service.ts.ts`
+Todo codigo deve ser implementado no arquivo `./app/services/challenger.service.ts`
 
 
 ## Comandos
