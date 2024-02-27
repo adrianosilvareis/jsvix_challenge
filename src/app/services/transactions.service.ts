@@ -23,12 +23,12 @@ export class TransactionsService {
   }
 
   newTransaction(prop: TransactionProps) {
-    const transaction = this.challenge.createTransaction(prop);
+    const transaction = this.challenge.createTransaction(prop) as Transaction;
 
     const isDuplicated = this.challenge.checkDuplicate(transaction);
 
     if (isDuplicated) {
-      const reversalTransaction = this.challenge.createReverseOperation(transaction);
+      const reversalTransaction = this.challenge.createReverseOperation(transaction) as Transaction;
 
       this.store.dispatch(performTransaction({ transaction: reversalTransaction }));
     }

@@ -39,7 +39,7 @@ describe('ChallengerService', () => {
 
     service.database.transactions = [ transaçãoExistente ];
 
-    const novaTransação = service.createTransaction(Builder.TransactionPropsBuild());
+    const novaTransação = service.createTransaction(Builder.TransactionPropsBuild()) as Transaction;
     const SHA256_OF_JSVIX = '59f92eab109759c9db3d4f0b3c1dda6a39f499591b10d122c1f9f278fd50ca9e';
 
     expect(SHA256_OF_JSVIX).toBe(novaTransação.id);
