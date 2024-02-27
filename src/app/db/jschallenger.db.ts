@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-import { TransactionType } from "../interfaces/transaction-type.enum";
 import { Transaction } from "../interfaces/transaction.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JSChallengerDB {
-  private transactions: Transaction[] = [];
+  public transactions: Transaction[] = [];
 
   add (transaction: Transaction) {
     this.transactions = [...this.transactions, transaction];
