@@ -3,7 +3,7 @@ import { JSChallengerDB } from '../db/jschallenger.db';
 import { TransactionProps } from '../interfaces/transaction-props.interface';
 import { Transaction } from '../interfaces/transaction.interface';
 
-const INITIAL_HASH_KEY = 'JSVIX';
+const INITIAL_HASH_KEY = 'js-vix';
 
 @Injectable({
   providedIn: 'root'

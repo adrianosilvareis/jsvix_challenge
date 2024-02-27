@@ -24,7 +24,7 @@ describe('ChallengerService', () => {
     const transactionProps = Builder.TransactionPropsBuild();
 
     const expected = Object.assign({}, transactionProps, {
-      id: SHA256('JSVIX').toString(),
+      id: SHA256('js-vix').toString(),
       date: new Date()
     })
 
@@ -35,7 +35,7 @@ describe('ChallengerService', () => {
 
   it('deve retornar um Id novo para cada transação usando o ultimo Id como chave', () => {
     const transaçãoExistente = Builder.TransactionBuild();
-    transaçãoExistente.id = 'JSVIX';
+    transaçãoExistente.id = 'js-vix';
 
     service.database.transactions = [ transaçãoExistente ];
 
@@ -84,9 +84,9 @@ describe('ChallengerService', () => {
     expect(transactionProps).toEqual(expectedProps);
   });
 
-  it('deve retornar o texto "JSVIX" ao chamar "lastHash" quando não existir transações', () => {
+  it('deve retornar o texto "js-vix" ao chamar "lastHash" quando não existir transações', () => {
     const lastHash = service.lastHash();
-    expect(lastHash).toBe('JSVIX');
+    expect(lastHash).toBe('js-vix');
   });
 
   it('deve retornar o id do ultimo registro, quando existir', () => {
@@ -98,7 +98,7 @@ describe('ChallengerService', () => {
   });
 
   it('deve retornar um SHA256 usando o valor passado como chave', () => {
-    const hash = service.toHash('JSVIX');
+    const hash = service.toHash('js-vix');
     expect(hash).toBe('59f92eab109759c9db3d4f0b3c1dda6a39f499591b10d122c1f9f278fd50ca9e');
   });
 
