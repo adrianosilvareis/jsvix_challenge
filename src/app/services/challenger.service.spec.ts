@@ -40,9 +40,9 @@ describe('ChallengerService', () => {
     service.database.transactions = [ transaçãoExistente ];
 
     const novaTransação = service.createTransaction(Builder.TransactionPropsBuild()) as Transaction;
-    const SHA256_OF_JSVIX = '59f92eab109759c9db3d4f0b3c1dda6a39f499591b10d122c1f9f278fd50ca9e';
+    const SHA256_OF_JS_VIX = '92e8cd1579e6e62a98786bc12bccdceff49270416316559a2c03090cd0f42d71';
 
-    expect(SHA256_OF_JSVIX).toBe(novaTransação.id);
+    expect(SHA256_OF_JS_VIX).toBe(novaTransação.id);
   });
 
   it('deve retornar falso se a transação for a primeira cadastrada no banco de dados', () => {
@@ -99,7 +99,7 @@ describe('ChallengerService', () => {
 
   it('deve retornar um SHA256 usando o valor passado como chave', () => {
     const hash = service.toHash('js-vix');
-    expect(hash).toBe('59f92eab109759c9db3d4f0b3c1dda6a39f499591b10d122c1f9f278fd50ca9e');
+    expect(hash).toBe('92e8cd1579e6e62a98786bc12bccdceff49270416316559a2c03090cd0f42d71');
   });
 
   it('deve retornar a soma total das operações realizadas', () => {
