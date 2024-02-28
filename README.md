@@ -81,14 +81,10 @@ Criar operação reversa.
 
 Resolva a equação de calculo de saldo total.
 
-**Funções que precisam ser resolvidas**: 
+**Funções que precisam ser implementadas**: 
 ```typescript
-  calculeSaldoTotal(transactions: Transaction[]): number {
-    return transactions.reduce((prev, next) => {
-      return prev += next.amount;
-    }, 0)
-  }
+  calculeSaldoTotal(transactions: Transaction[]): number
 ```
 **Dicas**:
 
-Use a logica e matemática são suas aliadas neste desafio.
+A logica e matemática são suas aliadas neste desafio.

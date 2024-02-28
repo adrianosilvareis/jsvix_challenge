@@ -30,9 +30,7 @@ export class ChallengerService {
     }
 
     calculeSaldoTotal(transactions: Transaction[]): number {
-      return transactions.reduce((prev, next) => {
-        return prev += next.amount;
-      }, 0)
+      return 0;
     }
   }
 
