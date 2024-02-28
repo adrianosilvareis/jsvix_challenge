@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { JSChallengerDB } from '../db/jschallenger.db';
 import { TransactionProps } from '../interfaces/transaction-props.interface';
 import { Transaction } from '../interfaces/transaction.interface';
-import { performTransaction } from '../store/transaction.actions';
+import { performTransaction, updateTotalBalance } from '../store/transaction.actions';
 import { ChallengerService } from './challenger.service.ts';
 
 @Injectable({
@@ -33,6 +33,12 @@ export class TransactionsService {
       this.store.dispatch(performTransaction({ transaction: reversalTransaction }));
     }
 
-    return of(this.database.add(transaction));
+    this.database.add(transaction);
+
+    const total = this.challenge.calculeSaldoTotal(this.database.transactions);
+
+    this.store.dispatch(updateTotalBalance({ total }));
+
+    return of(transaction);
   }
 }

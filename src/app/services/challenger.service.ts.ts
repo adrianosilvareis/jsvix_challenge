@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JSChallengerDB } from '../db/jschallenger.db';
 import { TransactionProps } from '../interfaces/transaction-props.interface';
-import { Transaction } from '../interfaces/transaction.interface';
+import { Transaction } from './../interfaces/transaction.interface';
 
 const INITIAL_HASH_KEY = 'js-vix';
 
@@ -27,6 +27,12 @@ export class ChallengerService {
     }
 
     toHash(lastHash: string): string | void{
+    }
+
+    calculeSaldoTotal(transactions: Transaction[]): number {
+      return transactions.reduce((prev, next) => {
+        return prev += next.amount;
+      }, 0)
     }
   }
 

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Transaction } from '../interfaces/transaction.interface';
 import { TransactionProps } from '../interfaces/transaction-props.interface';
+import { Transaction } from '../interfaces/transaction.interface';
 
 export const performTransaction = createAction(
   '[Transaction] Perform Transaction',
@@ -29,4 +29,9 @@ export const loadTransactionSuccess = createAction(
 export const loadTransactionError = createAction(
   '[Transaction] Load Transaction Error',
   props<{ error: string }>()
+);
+
+export const updateTotalBalance = createAction(
+  '[Transaction] Set Total Balance',
+  props<{ total: number }>()
 );

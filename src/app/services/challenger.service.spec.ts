@@ -102,6 +102,18 @@ describe('ChallengerService', () => {
     expect(hash).toBe('59f92eab109759c9db3d4f0b3c1dda6a39f499591b10d122c1f9f278fd50ca9e');
   });
 
+  it('deve retornar a soma total das operações realizadas', () => {
+    const transactions = [
+      Object.assign({}, Builder.TransactionBuild(), { amount: 250, type: TransactionType.deposit }),
+      Object.assign({}, Builder.TransactionBuild(), { amount: 150, type: TransactionType.deposit }),
+      Object.assign({}, Builder.TransactionBuild(), { amount: 170, type: TransactionType.credit }),
+      Object.assign({}, Builder.TransactionBuild(), { amount: 130, type: TransactionType.credit }),
+    ]
+
+    const balance = service.calculeSaldoTotal(transactions);
+
+    expect(balance).toBe(100);
+  });
 });
 
 class Builder {

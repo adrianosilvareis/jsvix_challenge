@@ -1,15 +1,17 @@
 
 import { createReducer, on } from '@ngrx/store';
-import { performTransaction, performTransactionSuccess, performTransactionError, loadTransactions, loadTransactionSuccess, loadTransactionError } from './transaction.actions';
 import { Transaction } from '../interfaces/transaction.interface';
+import { loadTransactionError, loadTransactionSuccess, loadTransactions, performTransaction, performTransactionError, performTransactionSuccess, updateTotalBalance } from './transaction.actions';
 
 export interface TransactionsState {
+  balance: number;
   transactions: Transaction[];
   loading: boolean;
   error: string | null;
 }
 
 export const initialState: TransactionsState = {
+  balance: 0,
   transactions: [],
   loading: false,
   error: null
@@ -48,5 +50,9 @@ export const transactionsReducer = createReducer(
     ...state,
     loading: false,
     error: error
+  })),
+  on(updateTotalBalance, (state, { total }) => ({
+    ...state,
+    balance: total
   }))
 );
