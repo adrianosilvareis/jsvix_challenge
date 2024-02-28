@@ -76,3 +76,19 @@ Criar operação reversa.
 ```Typescript
   const descrição = `Reverse Operation: ${currentItem.description}`
 ```
+
+# Desafio 4
+
+Resolva a equação de calculo de saldo total.
+
+**Funções que precisam ser resolvidas**: 
+```typescript
+  calculeSaldoTotal(transactions: Transaction[]): number {
+    return transactions.reduce((prev, next) => {
+      return prev += next.amount;
+    }, 0)
+  }
+```
+**Dicas**:
+
+Use a logica e matemática são suas aliadas neste desafio.
