@@ -13,7 +13,7 @@ Todo codigo deve ser implementado no arquivo `./app/services/challenger.service.
 
 Criar uma transação seguindo a estrutura proposta pela interface `Transaction`.
 - usando o ID da transação anterior como chave para o novo ID.
-- quando não existir transação anterior a chave deve ser **js-vix** tudo maiúsculo.
+- quando não existir transação anterior a chave deve ser **js-vix** tudo minúsculo.
 - o ID deve ser um HASH do tipo SHA256.
 
 **Funções que precisam ser implementadas**: 
