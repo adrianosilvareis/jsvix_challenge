@@ -22,7 +22,7 @@ export const selectLoading = createSelector(
 
 export const selectBalance = createSelector(
   selectFeature,
-  (state: TransactionsState) => state.transactions.reduce((prev, next) => {
-    return next.type === TransactionType.credit ? prev -= next.amount : prev += next.amount;
-  }, 0)
+  (state: TransactionsState) => state.transactions.reduce(
+    (prev, next) => next.type === TransactionType.credit ? prev -= next.amount : prev += next.amount, 0
+  )
 );
